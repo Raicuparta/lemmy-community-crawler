@@ -1,12 +1,16 @@
-import { mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 import CommunityCrawler from "./community.js";
 import { START_URLS } from "./const.js";
 
-async function start(args) {
-  mkdirSync("./build");
+const buildDir = "./build";
 
-  writeFileSync("./build/output.json", JSON.stringify(["test"], null, 2));
+async function start(args) {
+  if (!existsSync(buildDir)) {
+    mkdirSync(buildDir);
+  }
+
+  writeFileSync(`${buildDir}/output.json`, JSON.stringify(["test"], null, 2));
   return;
 
   const communityMap = {};
