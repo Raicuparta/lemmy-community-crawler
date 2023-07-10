@@ -10,9 +10,6 @@ async function start(args) {
     mkdirSync(buildDir);
   }
 
-  writeFileSync(`${buildDir}/output.json`, JSON.stringify(["test"], null, 2));
-  return;
-
   const communityMap = {};
 
   await Promise.allSettled(
