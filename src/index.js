@@ -6,6 +6,9 @@ import { START_URLS } from "./const.js";
 async function start(args) {
   mkdirSync("./build");
 
+  writeFileSync("./build/output.json", JSON.stringify(["test"], null, 2));
+  return;
+
   const communityMap = {};
 
   await Promise.allSettled(
