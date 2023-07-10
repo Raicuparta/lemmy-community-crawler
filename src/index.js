@@ -10,7 +10,7 @@ async function start(args) {
     mkdirSync(buildDir);
   }
 
-  /** @type {{ url: string, subscribers: number, monthlyActiveUsers: number, domain: string, nsfw: boolean }[]} */
+  /** @type {{ url: string, subscribers: number, monthlyActiveUsers: number, domain: string, nsfw: boolean, name: string }[]} */
   let communities = [];
 
   await Promise.allSettled(
@@ -35,9 +35,18 @@ async function start(args) {
     })
   );
 
+  // Remove duplicates
+  const communitySet = new Set();
+  const filteredCommunities = communities.filter((community) => {
+    const communityId = `${community.name}@${community.domain}`;
+    if (communitySet.has(communityId)) return false;
+    communitySet.add(communityId);
+    return true;
+  });
+
   writeFileSync(
     "./build/communities.json",
-    JSON.stringify(communities, null, 2)
+    JSON.stringify(filteredCommunities, null, 2)
   );
 }
 
