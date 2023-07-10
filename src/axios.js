@@ -20,7 +20,7 @@ export default class AxiosClient {
     });
   }
 
-  async getUrlWithRetry(url, options = {}, maxRetries = 4, current = 0) {
+  async getUrlWithRetry(url, options = {}, maxRetries = 2, current = 0) {
     try {
       return await this.axios.get(url, options);
     } catch (e) {
@@ -36,7 +36,7 @@ export default class AxiosClient {
         );
 
         await new Promise((resolve) =>
-          setTimeout(resolve, (current + 1) * 2000)
+          setTimeout(resolve, (current + 1) * 1000)
         );
 
         return await this.getUrlWithRetry(

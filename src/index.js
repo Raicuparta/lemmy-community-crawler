@@ -10,23 +10,35 @@ async function start(args) {
     mkdirSync(buildDir);
   }
 
-  const communityMap = {};
+  /** @type {{ url: string, subscribers: number, monthlyActiveUsers: number, domain: string, nsfw: boolean }[]} */
+  let communities = [];
 
   await Promise.allSettled(
     START_URLS.map(async (crawlDomain) => {
       try {
         const crawler = new CommunityCrawler(crawlDomain);
         const communityData = await crawler.crawlList();
-        communityMap[crawlDomain] = communityData;
+        communities = communities.concat(
+          communityData.map((community) => ({
+            domain: crawlDomain,
+            name: community.community.name,
+            title: community.community.title,
+            url: community.community.actor_id,
+            subscribers: community.counts.subscribers,
+            monthlyActiveUsers: community.counts.users_active_month,
+            nsfw: community.community.nsfw,
+          }))
+        );
       } catch (e) {
         console.error(`Failed to crawl domain ${crawlDomain}`, e);
       }
     })
   );
 
-  console.log("result", communityMap);
-
-  writeFileSync("./build/output.json", JSON.stringify(communityMap, null, 2));
+  writeFileSync(
+    "./build/communities.json",
+    JSON.stringify(communities, null, 2)
+  );
 }
 
 const args = process.argv.slice(2);

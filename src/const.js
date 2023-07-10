@@ -1,55 +1,5 @@
-function hoursToMs(hours) {
-  return hours * 60 * 60 * 1000;
-}
-
-export const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
-
-export const LOG_LEVEL = process.env.LOG_PATH || "debug";
-
-// should there be a cron job to upload the exported data to s3 automatically?
-export const AUTO_UPLOAD_S3 = process.env.AUTO_UPLOAD_S3 || false;
-export const PUBLISH_S3_BUCKET = process.env.PUBLISH_S3_BUCKET || "";
-
-// every 2 hours by default
-export const PUBLISH_S3_CRON = process.env.PUBLISH_S3_CRON || "0 */2 * * *";
-
-// timeout for the instance and community crawlers
-export const CRAWL_TIMEOUT = {
-  INSTANCE: 10 * 60 * 1000, // 10 minutes in ms
-  COMMUNITY: 45 * 60 * 1000, // 45 minutes in ms
-  KBIN: 30 * 60 * 1000, // 45 minutes in ms
-};
-
-// the minimum amount of time between crawling the same instance
-const MIN_RECRAWL_HOURS = 6;
-export const MIN_RECRAWL_MS = hoursToMs(MIN_RECRAWL_HOURS);
-
-// consider records to be aged after this long (to re-crawl)
-const RECRAWL_AGED_HOURS = 7;
-export const RECRAWL_AGED_MS = hoursToMs(RECRAWL_AGED_HOURS);
-
-// consider communities for deletion after they haven't been seen for this long
-const DELETE_AGED_HOURS = 13; // more than
-export const DELETE_AGED_MS = hoursToMs(DELETE_AGED_HOURS);
-
-// if a server is identified as a non-lemmy server, ho often should we wait before checking again?
-const RECRAWL_FEDIVERSE_HOURS = 24 * 7;
-export const RECRAWL_FEDIVERSE_MS = hoursToMs(RECRAWL_FEDIVERSE_HOURS);
-
-// how often should the cron run with --cron
-export const AGED_CRON_EXPRESSION = "*/15 * * * *"; // every 15 minutes
-
-// how often to hit fediverse.observer to get uptimes with --cron
-export const UPTIME_CRON_EXPRESSION = "0 */12 * * *"; // every 12 hours
-
-export const KBIN_CRON_EXPRESSION = "0 */12 * * *"; // every 12 hours
-
-// the maximum age for output items to be included in the json dumps
-const OUTPUT_MAX_AGE_HOURS = 12;
-export const OUTPUT_MAX_AGE_MS = OUTPUT_MAX_AGE_HOURS * 60 * 60 * 1000;
-
 // for each request we make, after how much time should axios be configured to timeout
-export const AXIOS_REQUEST_TIMEOUT = 120 * 1000; // 20 seconds in ms
+export const AXIOS_REQUEST_TIMEOUT = 120 * 1000;
 
 export const FEDDIT_URLS = [
   "0xdd.org.ru",

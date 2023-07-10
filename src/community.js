@@ -2,7 +2,7 @@ import logging from "./logging.js";
 import { CrawlError } from "./error.js";
 import AxiosClient from "./axios.js";
 
-const TIME_BETWEEN_PAGES = 500;
+const TIME_BETWEEN_PAGES = 1000;
 
 /**
  * crawlList() - Crawls over `/api/v3/communities` and stores the results in redis.
@@ -14,6 +14,8 @@ export default class CommunityCrawler {
     this.crawlDomain = crawlDomain;
     this.logPrefix = `[CommunityList] [${this.crawlDomain}]`;
     this.client = new AxiosClient();
+
+    /** @type {import('lemmy-js-client').CommunityView[]} */
     this.communities = [];
   }
 
