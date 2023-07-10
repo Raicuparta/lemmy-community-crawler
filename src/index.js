@@ -10,7 +10,7 @@ async function start(args) {
     mkdirSync(buildDir);
   }
 
-  /** @type {{ url: string, subscribers: number, monthlyActiveUsers: number, domain: string, nsfw: boolean, name: string }[]} */
+  /** @type {{ url: string, subscribers: number, monthlyActiveUsers: number, domain: string, nsfw: boolean, name: string, title: string }[]} */
   let communities = [];
 
   await Promise.allSettled(
