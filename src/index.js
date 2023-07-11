@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 import CommunityCrawler from "./community.js";
 import { START_URLS } from "./const.js";
 
-const buildDir = "./build";
+const buildDir = "./page";
 
 async function start(args) {
   if (!existsSync(buildDir)) {
@@ -45,7 +45,7 @@ async function start(args) {
   });
 
   writeFileSync(
-    "./build/communities.json",
+    `${buildDir}/communities.json`,
     JSON.stringify(filteredCommunities, null, 2)
   );
 }
