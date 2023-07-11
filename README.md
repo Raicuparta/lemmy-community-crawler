@@ -1,6 +1,6 @@
 # Lemmy Community Crawler
 
-Crawls Lemmy instances, gets a list of communities, then deploys it to GitHub Pages.
+Crawls Lemmy instances, gets a list of communities, then deploys it to GitHub Pages. I made this for [Lemmy Go](https://lemmy.raicuparta.com), my Lemmy browser extension.
 
 [lemmy.raicuparta.com/communities.json](https://lemmy.raicuparta.com/communities.json)
 
