@@ -3,6 +3,7 @@ import { CrawlError } from "./error.js";
 import AxiosClient from "./axios.js";
 
 const TIME_BETWEEN_PAGES = 1000;
+const MAX_PAGE_COUNT = 500;
 
 /**
  * crawlList() - Crawls over `/api/v3/communities` and stores the results in redis.
@@ -134,6 +135,8 @@ export default class CommunityCrawler {
   }
 
   async crawlCommunityPaginatedList(pageNumber = 1) {
+    if (pageNumber > MAX_PAGE_COUNT) return [];
+
     const communities = await this.getPageData(pageNumber);
 
     logging.debug(
